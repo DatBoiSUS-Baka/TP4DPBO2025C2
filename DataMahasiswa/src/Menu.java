@@ -10,20 +10,20 @@ import java.util.ArrayList;
 public class Menu extends JFrame{
     public static void main(String[] args) {
         // buat object window
-
+        Menu window = new Menu();
 
         // atur ukuran window
-
+        window.setSize(480, 560);
         // letakkan window di tengah layar
-
+        window.setLocationRelativeTo(null);
         // isi window
-
+        window.setContentPane(window.mainPanel);
         // ubah warna background
-
+        window.getContentPane().setBackground(Color.white);
         // tampilkan window
-
+        window.setVisible(true);
         // agar program ikut berhenti saat window diclose
-
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     // index baris yang diklik
@@ -47,7 +47,7 @@ public class Menu extends JFrame{
     // constructor
     public Menu() {
         // inisialisasi listMahasiswa
-
+        
 
         // isi listMahasiswa
 

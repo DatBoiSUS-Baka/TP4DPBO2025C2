@@ -47,49 +47,48 @@ public class Menu extends JFrame{
     // constructor
     public Menu() {
         // inisialisasi listMahasiswa
-        
+        listMahasiswa = new ArrayList<>();
 
         // isi listMahasiswa
-
+        populateList();
 
         // isi tabel mahasiswa
-
+        mahasiswaTable.setModel(setTable());
 
         // ubah styling title
-
+        titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD, 20f));
 
         // atur isi combo box
-
+        String[] jenisKelaminData = {"", "Laki-Laki", "Perempuan"};
+        jenisKelaminComboBox.setModel(new DefaultComboBoxModel(jenisKelaminData));
 
 
         // sembunyikan button delete
-
+        deleteButton.setVisible(false);
 
         // saat tombol add/update ditekan
         addUpdateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
-
-
-
+                if (selectedIndex == -1){
+                    insertData();
+                }else{
+                    updateData();
+                }
             }
         });
         // saat tombol delete ditekan
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
-
+                clearForm();
             }
         });
         // saat tombol cancel ditekan
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                clearForm();
             }
         });
         // saat salah satu baris tabel ditekan
@@ -97,44 +96,44 @@ public class Menu extends JFrame{
             @Override
             public void mousePressed(MouseEvent e) {
                 // ubah selectedIndex menjadi baris tabel yang diklik
-
+                selectedIndex = mahasiswaTable.getSelectedRow();
 
                 // simpan value textfield dan combo box
-
-
-
+                String selectedNim = mahasiswaTable.getModel().getValueAt(selectedIndex, 1).toString();
+                String selectedNama = mahasiswaTable.getModel().getValueAt(selectedIndex, 2).toString();
+                String selectedSelectedJenisKelamin = mahasiswaTable.getModel().getValueAt(selectedIndex, 3).toString();
 
                 // ubah isi textfield dan combo box
-
-
-
+                nimField.setText(selectedNim);
+                namaField.setText(selectedNama);
+                jenisKelaminComboBox.setSelectedItem(selectedSelectedJenisKelamin);
 
                 // ubah button "Add" menjadi "Update"
-
+                addUpdateButton.setText("Update");
                 // tampilkan button delete
-
+                deleteButton.setVisible(true);
             }
         });
     }
 
     public final DefaultTableModel setTable() {
         // tentukan kolom tabel
-
+        Object[] column = {"No", "NIM", "Nama", "Jenis Kelamin"};
 
         // buat objek tabel dengan kolom yang sudah dibuat
-
+        DefaultTableModel temp = new DefaultTableModel(null, column);
 
         // isi tabel dengan listMahasiswa
+        for (int i = 0; i < listMahasiswa.size(); i++){
+            Object[] row = new Object[4];
+            row[0] = i + 1;
+            row[1] = listMahasiswa.get(i).getNim();
+            row[2] = listMahasiswa.get(i).getNama();
+            row[3] = listMahasiswa.get(i).getJenisKelamin();
 
-
-
-
-
-
-
-
-
-        return null; // return juga harus diganti
+            temp.addRow(row);
+        }
+        return temp; // return juga harus diganti
     }
 
     public void insertData() {

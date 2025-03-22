@@ -138,21 +138,22 @@ public class Menu extends JFrame{
 
     public void insertData() {
         // ambil value dari textfield dan combobox
-
-
-
+        String nim = nimField.getText();
+        String nama = namaField.getText();
+        String jenisKelamin = jenisKelaminComboBox.getSelectedItem().toString();
 
         // tambahkan data ke dalam list
-
+        listMahasiswa.add(new Mahasiswa(nim, nama, jenisKelamin));
 
         // update tabel
-
+        mahasiswaTable.setModel(setTable());
 
         // bersihkan form
-
+        clearForm();
 
         // feedback
-
+        System.out.println("Insert berhasil!");
+        JOptionPane.showMessageDialog(null, "Data berhasil ditambahkan");
 
     }
 

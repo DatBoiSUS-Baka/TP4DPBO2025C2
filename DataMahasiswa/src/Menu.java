@@ -35,6 +35,7 @@ public class Menu extends JFrame{
     private JTextField nimField;
     private JTextField namaField;
     private JTable mahasiswaTable;
+    private JTextField makananField;
     private JButton addUpdateButton;
     private JButton cancelButton;
     private JComboBox jenisKelaminComboBox;
@@ -43,6 +44,7 @@ public class Menu extends JFrame{
     private JLabel nimLabel;
     private JLabel namaLabel;
     private JLabel jenisKelaminLabel;
+    private JLabel makanLabel;
 
     // constructor
     public Menu() {
@@ -81,7 +83,7 @@ public class Menu extends JFrame{
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                clearForm();
+                deleteData();
             }
         });
         // saat tombol cancel ditekan
@@ -102,11 +104,13 @@ public class Menu extends JFrame{
                 String selectedNim = mahasiswaTable.getModel().getValueAt(selectedIndex, 1).toString();
                 String selectedNama = mahasiswaTable.getModel().getValueAt(selectedIndex, 2).toString();
                 String selectedSelectedJenisKelamin = mahasiswaTable.getModel().getValueAt(selectedIndex, 3).toString();
+                String selectedMakanan = mahasiswaTable.getModel().getValueAt(selectedIndex, 4).toString();
 
                 // ubah isi textfield dan combo box
                 nimField.setText(selectedNim);
                 namaField.setText(selectedNama);
                 jenisKelaminComboBox.setSelectedItem(selectedSelectedJenisKelamin);
+                makananField.setText(selectedMakanan);
 
                 // ubah button "Add" menjadi "Update"
                 addUpdateButton.setText("Update");
@@ -118,18 +122,19 @@ public class Menu extends JFrame{
 
     public final DefaultTableModel setTable() {
         // tentukan kolom tabel
-        Object[] column = {"No", "NIM", "Nama", "Jenis Kelamin"};
+        Object[] column = {"No", "NIM", "Nama", "Jenis Kelamin", "Makanan Favorit"};
 
         // buat objek tabel dengan kolom yang sudah dibuat
         DefaultTableModel temp = new DefaultTableModel(null, column);
 
         // isi tabel dengan listMahasiswa
         for (int i = 0; i < listMahasiswa.size(); i++){
-            Object[] row = new Object[4];
+            Object[] row = new Object[5];
             row[0] = i + 1;
             row[1] = listMahasiswa.get(i).getNim();
             row[2] = listMahasiswa.get(i).getNama();
             row[3] = listMahasiswa.get(i).getJenisKelamin();
+            row[4] = listMahasiswa.get(i).getMakananFavorit();
 
             temp.addRow(row);
         }
@@ -141,9 +146,10 @@ public class Menu extends JFrame{
         String nim = nimField.getText();
         String nama = namaField.getText();
         String jenisKelamin = jenisKelaminComboBox.getSelectedItem().toString();
+        String makananFavorit = makananField.getText();
 
         // tambahkan data ke dalam list
-        listMahasiswa.add(new Mahasiswa(nim, nama, jenisKelamin));
+        listMahasiswa.add(new Mahasiswa(nim, nama, jenisKelamin, makananFavorit));
 
         // update tabel
         mahasiswaTable.setModel(setTable());
@@ -159,75 +165,84 @@ public class Menu extends JFrame{
 
     public void updateData() {
         // ambil data dari form
-
-
-
+        String nim = nimField.getText();
+        String nama = namaField.getText();
+        String jenisKelamin = jenisKelaminComboBox.getSelectedItem().toString();
+        String makanan = makananField.getText();
 
         // ubah data mahasiswa di list
-
-
-
+        listMahasiswa.get(selectedIndex).setNim(nim);
+        listMahasiswa.get(selectedIndex).setNama(nama);
+        listMahasiswa.get(selectedIndex).setJenisKelamin(jenisKelamin);
+        listMahasiswa.get(selectedIndex).setMakananFavorit(makanan);
 
         // update tabel
-
+        mahasiswaTable.setModel(setTable());
 
         // bersihkan form
-
+        clearForm();
 
         // feedback
-
+        System.out.println("Update Berahasil!");
+        JOptionPane.showMessageDialog(null, "Data berhasil diubah!");
 
     }
 
     public void deleteData() {
-        // hapus data dari list
+        // Konfirmasi delete data dari list
+        int res = JOptionPane.showConfirmDialog(null, "Yakin ingin menghapus?", "Konfirmasi", JOptionPane.YES_NO_CANCEL_OPTION);
+        if (res == JOptionPane.YES_OPTION){
+            // Hapus data dari list
+            listMahasiswa.remove(selectedIndex);
 
+            // Update tabel
+            mahasiswaTable.setModel(setTable());
 
-        // update tabel
+            // Bersihkan form
+            clearForm();
 
-
-        // bersihkan form
-
-
-        // feedback
-
-
+            // Feedback
+            System.out.println("Delete Berhasil!");
+            JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
+        }else {
+            System.out.println("Tidak jadi");
+        }
     }
 
     public void clearForm() {
         // kosongkan semua texfield dan combo box
-
-
-
+        nimField.setText("");
+        namaField.setText("");
+        jenisKelaminComboBox.setSelectedItem("");
 
         // ubah button "Update" menjadi "Add"
-
+        addUpdateButton.setText("Add");
         // sembunyikan button delete
-
+        deleteButton.setVisible(false);
         // ubah selectedIndex menjadi -1 (tidak ada baris yang dipilih)
-
+        selectedIndex = -1;
     }
 
     private void populateList() {
-        listMahasiswa.add(new Mahasiswa("2203999", "Amelia Zalfa Julianti", "Perempuan"));
-        listMahasiswa.add(new Mahasiswa("2202292", "Muhammad Iqbal Fadhilah", "Laki-laki"));
-        listMahasiswa.add(new Mahasiswa("2202346", "Muhammad Rifky Afandi", "Laki-laki"));
-        listMahasiswa.add(new Mahasiswa("2210239", "Muhammad Hanif Abdillah", "Laki-laki"));
-        listMahasiswa.add(new Mahasiswa("2202046", "Nurainun", "Perempuan"));
-        listMahasiswa.add(new Mahasiswa("2205101", "Kelvin Julian Putra", "Laki-laki"));
-        listMahasiswa.add(new Mahasiswa("2200163", "Rifanny Lysara Annastasya", "Perempuan"));
-        listMahasiswa.add(new Mahasiswa("2202869", "Revana Faliha Salma", "Perempuan"));
-        listMahasiswa.add(new Mahasiswa("2209489", "Rakha Dhifiargo Hariadi", "Laki-laki"));
-        listMahasiswa.add(new Mahasiswa("2203142", "Roshan Syalwan Nurilham", "Laki-laki"));
-        listMahasiswa.add(new Mahasiswa("2200311", "Raden Rahman Ismail", "Laki-laki"));
-        listMahasiswa.add(new Mahasiswa("2200978", "Ratu Syahirah Khairunnisa", "Perempuan"));
-        listMahasiswa.add(new Mahasiswa("2204509", "Muhammad Fahreza Fauzan", "Laki-laki"));
-        listMahasiswa.add(new Mahasiswa("2205027", "Muhammad Rizki Revandi", "Laki-laki"));
-        listMahasiswa.add(new Mahasiswa("2203484", "Arya Aydin Margono", "Laki-laki"));
-        listMahasiswa.add(new Mahasiswa("2200481", "Marvel Ravindra Dioputra", "Laki-laki"));
-        listMahasiswa.add(new Mahasiswa("2209889", "Muhammad Fadlul Hafiizh", "Laki-laki"));
-        listMahasiswa.add(new Mahasiswa("2206697", "Rifa Sania", "Perempuan"));
-        listMahasiswa.add(new Mahasiswa("2207260", "Imam Chalish Rafidhul Haque", "Laki-laki"));
-        listMahasiswa.add(new Mahasiswa("2204343", "Meiva Labibah Putri", "Perempuan"));
+        listMahasiswa.add(new Mahasiswa("2203999", "Amelia Zalfa Julianti", "Perempuan", "Ayam Geprek"));
+        listMahasiswa.add(new Mahasiswa("2202292", "Muhammad Iqbal Fadhilah", "Laki-laki", "Burger"));
+        listMahasiswa.add(new Mahasiswa("2202346", "Muhammad Rifky Afandi", "Laki-laki", "Bubur Ayam"));
+        listMahasiswa.add(new Mahasiswa("2210239", "Muhammad Hanif Abdillah", "Laki-laki", "Rendang"));
+        listMahasiswa.add(new Mahasiswa("2202046", "Nurainun", "Perempuan", "Seblak"));
+        listMahasiswa.add(new Mahasiswa("2205101", "Kelvin Julian Putra", "Laki-laki", "Donat"));
+        listMahasiswa.add(new Mahasiswa("2200163", "Rifanny Lysara Annastasya", "Perempuan", "Cumi Tepung"));
+        listMahasiswa.add(new Mahasiswa("2202869", "Revana Faliha Salma", "Perempuan", "Ayam Sayur"));
+        listMahasiswa.add(new Mahasiswa("2209489", "Rakha Dhifiargo Hariadi", "Laki-laki", "Sayur Nangka"));
+        listMahasiswa.add(new Mahasiswa("2203142", "Roshan Syalwan Nurilham", "Laki-laki", "Pecel Lele"));
+        listMahasiswa.add(new Mahasiswa("2200311", "Raden Rahman Ismail", "Laki-laki", "Ayam Pecel"));
+        listMahasiswa.add(new Mahasiswa("2200978", "Ratu Syahirah Khairunnisa", "Perempuan", "Tempe Mendoan"));
+        listMahasiswa.add(new Mahasiswa("2204509", "Muhammad Fahreza Fauzan", "Laki-laki", "Tahu Goreng"));
+        listMahasiswa.add(new Mahasiswa("2205027", "Muhammad Rizki Revandi", "Laki-laki", "Ayam Kecap"));
+        listMahasiswa.add(new Mahasiswa("2203484", "Arya Aydin Margono", "Laki-laki", "Bebek Goreng"));
+        listMahasiswa.add(new Mahasiswa("2200481", "Marvel Ravindra Dioputra", "Laki-laki", "Sate Asin"));
+        listMahasiswa.add(new Mahasiswa("2209889", "Muhammad Fadlul Hafiizh", "Laki-laki", "Lontong Sayur"));
+        listMahasiswa.add(new Mahasiswa("2206697", "Rifa Sania", "Perempuan", "Kari Jepang"));
+        listMahasiswa.add(new Mahasiswa("2207260", "Imam Chalish Rafidhul Haque", "Laki-laki", "Omurice"));
+        listMahasiswa.add(new Mahasiswa("2204343", "Meiva Labibah Putri", "Perempuan", "Telur Ceplok"));
     }
 }

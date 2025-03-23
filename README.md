@@ -46,7 +46,7 @@ Ketika program pertama dijalankan, dia akan membuat sebuah window di mana terdap
 
 # Dokumentasi
 ![WhatsApp Image 2025-03-23 at 08 22 44_1a15651f](https://github.com/user-attachments/assets/7508b796-9b7d-4eb5-95d0-cac9369d7210)
-![WhatsApp Image 2025-03-23 at 08 22 45_889c3002](https://github.com/user-attachments/assets/acd9b8f3-62b7-45e9-88db-f70e8cadd900)
-![WhatsApp Image 2025-03-23 at 08 22 45_725e3928](https://github.com/user-attachments/assets/3e59a04a-da25-44e5-bd29-1d8eb6f8659c)
-![WhatsApp Image 2025-03-23 at 08 22 45_594f0326](https://github.com/user-attachments/assets/0e24cf57-6328-4f59-b373-9061a2b85a92)
 ![WhatsApp Image 2025-03-23 at 08 22 44_98311a31](https://github.com/user-attachments/assets/842d5e38-f04f-4f39-b1c8-551f0bdc9fda)
+![WhatsApp Image 2025-03-23 at 08 22 45_725e3928](https://github.com/user-attachments/assets/3e59a04a-da25-44e5-bd29-1d8eb6f8659c)
+![WhatsApp Image 2025-03-23 at 08 22 45_889c3002](https://github.com/user-attachments/assets/acd9b8f3-62b7-45e9-88db-f70e8cadd900)
+![WhatsApp Image 2025-03-23 at 08 22 45_594f0326](https://github.com/user-attachments/assets/0e24cf57-6328-4f59-b373-9061a2b85a92)
